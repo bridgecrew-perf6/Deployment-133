@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="press">
+
+	<select id="findAll" resultType="pressvo" parameterType="string">
+		<![CDATA[
+			select log.press_log_press_id, log.press_log_status, log.press_log_punch
+			from press_log as log
+			where 
+				(
+				log.press_log_press_id = 1 or
+			    log.press_log_press_id = 2 or
+			    log.press_log_press_id = 3 or
+			    log.press_log_press_id = 4 or
+			    log.press_log_press_id = 5 or
+			    log.press_log_press_id = 6 or
+			    log.press_log_press_id = 7 or
+			    log.press_log_press_id = 8 or
+			    log.press_log_press_id = 9 or
+			    log.press_log_press_id = 10 or
+			    log.press_log_press_id = 11 or
+			    log.press_log_press_id = 12 or
+			    log.press_log_press_id = 13 or
+			    log.press_log_press_id = 14 or
+			    log.press_log_press_id = 15 
+			    )
+			    and 
+				log.press_log_time >= DATE_ADD('2022-03-07 00:00:00', INTERVAL (#{start_row}*10)  MINUTE)
+				and 
+				log.press_log_time < DATE_ADD('2022-03-07 00:00:00' , INTERVAL ((#{start_row}+1)*10)  MINUTE);
+			   		                             
+		]]>
+	</select>
+
+
+</mapper>

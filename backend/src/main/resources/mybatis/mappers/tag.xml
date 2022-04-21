@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tag">
+
+	<select id="findTag" resultType="pressvo" parameterType="hashmap">
+		<![CDATA[
+			SELECT log.press_log_press_id, log.press_log_status, log.press_log_punch
+			FROM press_log as log
+			WHERE 
+			(
+		]]>
+			<foreach collection="seletItem" item="item" separator=" OR "> 
+				log.press_log_press_id = #{item.value} 
+			</foreach>
+		<![CDATA[			
+			)
+			AND 
+			log.press_log_time >= DATE_ADD('2022-03-07 00:00:00', INTERVAL (#{start_row}*10)  MINUTE)
+			AND 
+			log.press_log_time < DATE_ADD('2022-03-07 00:00:00' , INTERVAL ((#{start_row}+1)*10)  MINUTE);
+		   		  
+		]]>
+	</select>
+	<select id="findHistory" resultType="map" parameterType="map">
+		<![CDATA[
+			select log.press_log_press_id as id, log.press_log_time as x, log.press_log_punch as y
+			from press_log as log
+			where (
+				log.press_log_press_id = 1 or
+			    log.press_log_press_id = 2 or
+			    log.press_log_press_id = 3 or
+			    log.press_log_press_id = 4 or
+			    log.press_log_press_id = 5 or
+			    log.press_log_press_id = 6 or
+			    log.press_log_press_id = 7 or
+			    log.press_log_press_id = 8 or
+			    log.press_log_press_id = 9 or
+			    log.press_log_press_id = 10 or
+			    log.press_log_press_id = 11 or
+			    log.press_log_press_id = 12 or
+			    log.press_log_press_id = 13
+			    )
+				and 
+				(
+					date_format(log.press_log_time, '%Y-%m-%d') >= #{startDate} 
+					and 
+					date_format(log.press_log_time, '%Y-%m-%d') <= #{endDate}
+				);
+		]]>
+			
+	</select>
+</mapper>
+	
